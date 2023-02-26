@@ -1,0 +1,14 @@
+@use "./theme.scss" as *;
+
+body {
+    background-color: $background-color;
+    color: $text-color;
+}
+
+#title {
+    font-size: 5em;
+    font-family: 'Courier New', Courier, monospace;
+    color: $text-color;
+    text-align: center;
+    user-select: none;
+}
