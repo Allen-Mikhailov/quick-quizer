@@ -27,6 +27,13 @@ function ChoicesQuiz({ questionData, QuestionUpdate })
 {
     return <div>
       <div className="choices-question">{questionData.questionText}</div>
+      <div className="choice-box">
+        {(questionData.choices).map((value) => 
+          <div key={value} className="choice-button">
+            <div className="choice-text">{value}</div>
+          </div>
+        )}
+      </div>
     </div>
 }
 
@@ -47,27 +54,28 @@ export default function () {
       const choices = [];
       const rTermList = randomizeList(Object.keys(testquiz.terms));
 
-      let getQ;
+      let getQ, getA;
+      const termReturn = (tterm) => tterm;
+      const catagoryReturn = (tterm) => testquiz.terms[tterm][answerCatagory];
 
       if (useTermAsQuestion) {
-        newData.question = term;
-        newData.answer = testquiz.terms[term][answerCatagory];
-        newData.questionText = newData.question
-        getQ = (tterm) => testquiz.terms[tterm][answerCatagory]
+        getQ = termReturn
+        getA = catagoryReturn
       } else {
-        getQ = (tterm) => tterm
-
-        newData.question = testquiz.terms[term][answerCatagory];
-        newData.questionText = newData.question
-        newData.answer = term;
+        getQ = catagoryReturn
+        getA = termReturn
       }
 
-      choices.push(getQ(term))
+      newData.question = getQ(term);
+      newData.answer = getA(term);
+      newData.questionText = newData.question+ "?"
+
+      choices.push(getA(term))
 
       for (let i = 0; i < rTermList.length; i++) {
         const tterm = rTermList[i];
-        if (tterm == term || choices.indexOf(getQ(tterm)) != -1) continue;
-        choices.push(getQ(tterm))
+        if (getQ(term) == getQ(tterm) || getA(term) == getA(tterm) || choices.indexOf(getQ(tterm)) != -1) continue;
+        choices.push(getA(tterm))
 
         if (choices.length >= maxChoices) break;
       }

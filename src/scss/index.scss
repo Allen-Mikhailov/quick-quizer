@@ -5,10 +5,14 @@ body {
     color: $text-color;
 }
 
-#title {
-    font-size: 5em;
+@mixin basic-text {
     font-family: 'Courier New', Courier, monospace;
     color: $text-color;
+    // user-select: none;
+}
+
+#title {
+    font-size: 5em;
     text-align: center;
-    user-select: none;
+    @include basic-text
 }

@@ -5,5 +5,36 @@
     color: $text-color;
     text-align: center;
     font-size: 2.5em;
-    margin-top: 10%;
+    margin-top: 5%;
+    @include basic-text
+}
+
+.choice-box {
+    display: flex;
+    flex: 1;
+    margin-top: 5%;
+    align-items: center;justify-content: center;
+}
+
+.choice-button {
+    width: 15vw;
+    aspect-ratio: 1.25;
+    margin: 1%;
+    background-color: red;
+    border-radius: 10%;
+
+    align-items: center;justify-content: center;
+
+    transition: scale .5s;
+
+    &:hover {
+        scale: 1.1;
+    }
+}
+
+.choice-text {
+    display:flex;justify-content:center;align-items:center;
+    height: 100%;
+    font-size: 2em;
+    @include basic-text
 }
