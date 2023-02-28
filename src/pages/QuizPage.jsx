@@ -16,7 +16,7 @@ function randomizeList(list) {
   for (let i = 0; i < list.length; i++) {
     const newPlace = Math.floor(Math.random() * list.length);
     const temp = newlist[i];
-    newlist[i] = list[newPlace];
+    newlist[i] = newlist[newPlace];
     newlist[newPlace] = temp;
   }
 
@@ -26,7 +26,7 @@ function randomizeList(list) {
 function ChoicesQuiz({ questionData, QuestionUpdate })
 {
     return <div>
-      <div className="choices-question">{questionData.question}</div>
+      <div className="choices-question">{questionData.questionText}</div>
     </div>
 }
 
@@ -52,11 +52,13 @@ export default function () {
       if (useTermAsQuestion) {
         newData.question = term;
         newData.answer = testquiz.terms[term][answerCatagory];
+        newData.questionText = newData.question
         getQ = (tterm) => testquiz.terms[tterm][answerCatagory]
       } else {
         getQ = (tterm) => tterm
 
         newData.question = testquiz.terms[term][answerCatagory];
+        newData.questionText = newData.question
         newData.answer = term;
       }
 
@@ -64,7 +66,7 @@ export default function () {
 
       for (let i = 0; i < rTermList.length; i++) {
         const tterm = rTermList[i];
-        if (tterm == term || newData.answer == getQ(term)) continue;
+        if (tterm == term || choices.indexOf(getQ(tterm)) != -1) continue;
         choices.push(getQ(tterm))
 
         if (choices.length >= maxChoices) break;
@@ -73,6 +75,8 @@ export default function () {
       randomizeList(choices);
       newData.choices = choices
     }
+
+    console.log(newData)
 
     setQuestionData(newData);
   }
@@ -83,7 +87,7 @@ export default function () {
     <div>
       <div id="title">Quick Quiz</div>
 
-      {questionData.questionType == "choices" && <ChoicesQuiz questionData={questionData} QuestionUpdate={QuestionUpdate} />}
+      {questionData.questionType == "choice" && <ChoicesQuiz questionData={questionData} QuestionUpdate={QuestionUpdate} />}
     </div>
   );
 }
