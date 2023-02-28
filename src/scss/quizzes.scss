@@ -1,2 +1,9 @@
 @use "index.scss" as *;
 @use "theme.scss" as *;
+
+.choices-question {
+    color: $text-color;
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 10%;
+}
