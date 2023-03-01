@@ -28,23 +28,55 @@ body {
 
 @keyframes choice-button-expand-effect {
     from {
-        opacity: 0%;
+        opacity: 100%;
+        scale: 1;
     }
 
     to {
-        opacity: 100%;
+        opacity: 0%;
+        scale: 1.5;
+    }
+}
+
+@keyframes choice-button-spawn {
+    from {
+        scale: .1;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+@keyframes choice-button-click {
+    from {
+        scale: 1;
+    }
+
+    from {
+        scale: 1.2;
+    }
+
+    to {
+        scale: 1;
     }
 }
 
 .choice-button-effect {
     position: absolute;
     width: 15vw;
+    scale: 1.5;
     aspect-ratio: 1.25;
     animation-name: choice-button-expand-effect;
     animation-duration: .25s;
 
     border-color: aqua;
+    border-style: solid;
+    border-width: 10px;
     border-radius: 10%;
+    opacity: 0%;
+    top: 0%;
+    // background-color: red;
 }
 
 .choice-button {
@@ -58,8 +90,15 @@ body {
 
     transition: scale .5s;
 
+    animation-name: choice-button-spawn;
+    animation-duration: .25s;
+
     &:hover {
         scale: 1.1;
+    }
+
+    &.choice-button-click {
+        animation: choice-button-click .25s;
     }
 }
 

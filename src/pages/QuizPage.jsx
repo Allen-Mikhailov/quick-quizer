@@ -23,14 +23,17 @@ function randomizeList(list) {
   return newlist
 }
 
-function ChoicesQuiz({ questionData, QuestionUpdate, click })
+function ChoicesQuiz({ questionData, click, questionNumber })
 {
 
     return <div>
       <div className="choices-question">{questionData.questionText}</div>
       <div className="choice-box">
         {(questionData.choices).map((value) => 
-          <div key={value} className="choice-button" onClick={() => click(value == questionData.answer)}>
+          <div key={value+"-"+questionNumber} id={"choice-value-"+value} className="choice-button" onClick={() => {
+            click(value)
+
+          }}>
             <div className="choice-text">{value}</div>
           </div>
         )}
@@ -39,10 +42,14 @@ function ChoicesQuiz({ questionData, QuestionUpdate, click })
 }
 
 export default function () {
-  const [score, setScore] = useState(0);
-  const [questionData, setQuestionData] = useState({});
+  const [ score, setScore ] = useState(0);
+  const [ questionNumber, setQuestionNumber ] = useState(0)
+  const [ questionData, setQuestionData ] = useState({});
 
   function QuestionUpdate() {
+
+    setQuestionNumber(questionNumber+1)
+
     const newData = {};
     const qType = randomFromList(questionTypes);
     newData.questionType = qType;
@@ -80,9 +87,7 @@ export default function () {
 
         if (choices.length >= maxChoices) break;
       }
-
-      randomizeList(choices);
-      newData.choices = choices
+      newData.choices = randomizeList(choices);
     }
 
     console.log(newData)
@@ -92,14 +97,24 @@ export default function () {
 
   useEffect(QuestionUpdate, []);
 
-  function click(scored)
+  function click(value)
   {
+    const scored = value == questionData.answer
+
+
+    const animPart = document.createElement("div")
+    animPart.className = "choice-button-effect"
+    animPart.style.borderColor = scored? "green":"red"
+    document.getElementById("choice-value-"+value).appendChild(animPart)
+    setTimeout(() => {document.getElementById("choice-value-"+value).removeChild(animPart)}, 250)
+
+
     if (scored)
         setScore(score+1)
 
     setTimeout(() => {
       QuestionUpdate();
-    }, 500);
+    }, 300);
   }
 
   return (
@@ -109,6 +124,7 @@ export default function () {
       {questionData.questionType == "choice" && <ChoicesQuiz 
         questionData={questionData}  
         click={click}
+        questionNumber={questionNumber}
         />}
     </div>
   );
