@@ -23,13 +23,14 @@ function randomizeList(list) {
   return newlist
 }
 
-function ChoicesQuiz({ questionData, QuestionUpdate })
+function ChoicesQuiz({ questionData, QuestionUpdate, click })
 {
+
     return <div>
       <div className="choices-question">{questionData.questionText}</div>
       <div className="choice-box">
         {(questionData.choices).map((value) => 
-          <div key={value} className="choice-button">
+          <div key={value} className="choice-button" onClick={() => click(value == questionData.answer)}>
             <div className="choice-text">{value}</div>
           </div>
         )}
@@ -74,7 +75,7 @@ export default function () {
 
       for (let i = 0; i < rTermList.length; i++) {
         const tterm = rTermList[i];
-        if (getQ(term) == getQ(tterm) || getA(term) == getA(tterm) || choices.indexOf(getQ(tterm)) != -1) continue;
+        if (getQ(term) == getQ(tterm) || getA(term) == getA(tterm) || choices.indexOf(getA(tterm)) != -1) continue;
         choices.push(getA(tterm))
 
         if (choices.length >= maxChoices) break;
@@ -91,13 +92,22 @@ export default function () {
 
   useEffect(QuestionUpdate, []);
 
-  function inc
+  function click(scored)
+  {
+    QuestionUpdate();
+    if (scored)
+        setScore(score+1)
+  }
 
   return (
     <div>
       <div id="title">Quick Quiz</div>
       <div className="score">{score}</div>
-      {questionData.questionType == "choice" && <ChoicesQuiz questionData={questionData} QuestionUpdate={QuestionUpdate} />}
+      {questionData.questionType == "choice" && <ChoicesQuiz 
+        questionData={questionData} 
+        QuestionUpdate={QuestionUpdate} 
+        click={click}
+        />}
     </div>
   );
 }

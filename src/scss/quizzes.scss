@@ -20,7 +20,7 @@
     width: 15vw;
     aspect-ratio: 1.25;
     margin: 1%;
-    background-color: red;
+    background-color: rgb(58, 67, 97);
     border-radius: 10%;
 
     align-items: center;justify-content: center;
@@ -36,5 +36,14 @@
     display:flex;justify-content:center;align-items:center;
     height: 100%;
     font-size: 2em;
-    @include basic-text
+    @include basic-text;
+    user-select: none;
+}
+
+.score {
+    @include basic-text;
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    font-size: 2.5em;
 }
