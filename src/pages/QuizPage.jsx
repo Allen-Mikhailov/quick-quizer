@@ -38,7 +38,7 @@ function ChoicesQuiz({ questionData, QuestionUpdate })
 }
 
 export default function () {
-  const [questionCount, setQuestionCount] = useState(0);
+  const [score, setScore] = useState(0);
   const [questionData, setQuestionData] = useState({});
 
   function QuestionUpdate() {
@@ -91,10 +91,12 @@ export default function () {
 
   useEffect(QuestionUpdate, []);
 
+  function inc
+
   return (
     <div>
       <div id="title">Quick Quiz</div>
-
+      <div className="score">{score}</div>
       {questionData.questionType == "choice" && <ChoicesQuiz questionData={questionData} QuestionUpdate={QuestionUpdate} />}
     </div>
   );
