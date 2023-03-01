@@ -94,9 +94,12 @@ export default function () {
 
   function click(scored)
   {
-    QuestionUpdate();
     if (scored)
         setScore(score+1)
+
+    setTimeout(() => {
+      QuestionUpdate();
+    }, 500);
   }
 
   return (
@@ -104,8 +107,7 @@ export default function () {
       <div id="title">Quick Quiz</div>
       <div className="score">{score}</div>
       {questionData.questionType == "choice" && <ChoicesQuiz 
-        questionData={questionData} 
-        QuestionUpdate={QuestionUpdate} 
+        questionData={questionData}  
         click={click}
         />}
     </div>

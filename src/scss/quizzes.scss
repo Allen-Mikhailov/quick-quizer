@@ -1,12 +1,22 @@
 @use "index.scss" as *;
 @use "theme.scss" as *;
 
+body {
+    overflow: hidden;
+}
+
 .choices-question {
     color: $text-color;
     text-align: center;
     font-size: 2.5em;
     margin-top: 5%;
-    @include basic-text
+    @include basic-text;
+
+    transition: scale .5s;
+
+    &:hover {
+        scale: 1.1;
+    }
 }
 
 .choice-box {
@@ -14,6 +24,27 @@
     flex: 1;
     margin-top: 5%;
     align-items: center;justify-content: center;
+}
+
+@keyframes choice-button-expand-effect {
+    from {
+        opacity: 0%;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+.choice-button-effect {
+    position: absolute;
+    width: 15vw;
+    aspect-ratio: 1.25;
+    animation-name: choice-button-expand-effect;
+    animation-duration: .25s;
+
+    border-color: aqua;
+    border-radius: 10%;
 }
 
 .choice-button {
@@ -46,4 +77,10 @@
     top: 1em;
     left: 1em;
     font-size: 2.5em;
+
+    transition: scale .5s;
+
+    &:hover {
+        scale: 1.1;
+    }
 }
