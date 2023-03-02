@@ -106,15 +106,17 @@ export default function () {
     animPart.className = "choice-button-effect"
     animPart.style.borderColor = scored? "green":"red"
     button.appendChild(animPart)
-    setTimeout(() => {button.removeChild(animPart)}, 250)
-
-
-    if (scored)
-        setScore(score+1)
+    button.classList.add("choice-button-click")
 
     setTimeout(() => {
+      button.removeChild(animPart)
       QuestionUpdate();
-    }, 300);
+    } , 250)
+
+    if (scored)
+      setScore(score+1)
+    else
+      setScore(score-1)
   }
 
   return (
