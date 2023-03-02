@@ -100,13 +100,13 @@ export default function () {
   function click(value)
   {
     const scored = value == questionData.answer
-
+    const button = document.getElementById("choice-value-"+value)
 
     const animPart = document.createElement("div")
     animPart.className = "choice-button-effect"
     animPart.style.borderColor = scored? "green":"red"
-    document.getElementById("choice-value-"+value).appendChild(animPart)
-    setTimeout(() => {document.getElementById("choice-value-"+value).removeChild(animPart)}, 250)
+    button.appendChild(animPart)
+    setTimeout(() => {button.removeChild(animPart)}, 250)
 
 
     if (scored)
